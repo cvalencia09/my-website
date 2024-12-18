@@ -1,0 +1,77 @@
+---
+import SocialIcons from '../components/SocialIcons.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/terminal-0.7.4.min.css';
+import '../styles/animate-4.1.1.min.css';
+import '../styles/global.css';
+
+const { pageTitle } = Astro.props;
+
+const socialLinks = {
+  github: "https://github.com/cvalencia09",
+  linkedin: "https://linkedin.com/in/cristianvalencia09",
+  email: "cristian.valencia09@gmail.com"
+};
+
+const currentPath = Astro.url.pathname.toLowerCase();
+const displayPath = currentPath.startsWith('/') ? currentPath.slice(1) : currentPath;
+const consoleName = "cvalencia ";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="terminal">
+    <Header consoleName={consoleName} currentPath={currentPath} displayPath={displayPath} />
+    <div class="container animated zoomIn fast" >
+      <h1>{pageTitle}</h1>
+      <slot />
+      <Footer />
+      <SocialIcons socialIcons={socialLinks} />
+    </div>
+  </body>
+</html>
+
+<style>
+  :global(.dark) {
+    background-color: #222225;
+    color: #e8e9ed;
+  }
+</style>
+
+<script>
+  const theme = (() => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme') ?? "light";
+    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  })();
+
+  if (theme === 'light') {
+    document.documentElement.classList.remove('dark');
+  } else {
+    document.documentElement.classList.add('dark');
+  }
+
+  window.localStorage.setItem('theme', theme);
+
+  document.getElementById('themeToggle')?.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', 
+      document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+    );
+  });
+</script>
+
+<script>
+  import "../scripts/menu.js";
+</script>

@@ -1,0 +1,113 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+import Layout from "~/components/Layout.astro";
+import Modal from "~/components/Modal.astro";
+
+import { getAlbumImages } from "~/utils/albums";
+
+
+export async function getStaticPaths() {
+  const albums = await getCollection("albums");
+
+  const paths = Object.values(albums).map((album) => {
+    return {
+      params: {
+        id: album.id,
+      },
+      props: {
+        album,
+      },
+    };
+  });
+
+  return paths;
+}
+
+const { album } = Astro.props;
+const images = await getAlbumImages(album.id);
+
+---
+
+<Layout title={album.data.title}>
+  <div class="text-center">
+    <h1 class="text-5xl font-bold">
+      {album.data.title}
+    </h1>
+    <p class="text-xl my-4">
+      {album.data.description}
+    </p>
+
+    <div class="mx-auto container my-8 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 text-center">
+        {images.map((image) => (
+          <div data-modal-trigger class="cursor-pointer">
+            <Image
+              src={image}
+              alt={`Image from ${album.data.title} album`}
+              format="avif"
+              quality={80}
+              class="rounded mb-4 border border-transparent hover:border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg"
+              loading="lazy"
+              data-image={image}
+            />
+          </div>
+        ))}
+      </div>
+
+    <p class="text-lg my-4 text-center">
+      <a href="/gallery/" class="hover:underline">View other albums</a>
+    </p>
+  </div>
+  <Modal id="imageModal" isOpen={false} />
+
+</Layout>
+
+
+<script>
+        let modal: HTMLElement | null = null;
+        let currentImage: string | null = null;
+      
+        document.addEventListener('DOMContentLoaded', () => {
+          modal = document.getElementById('imageModal');
+          
+          document.querySelectorAll('[data-modal-trigger]').forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+              const img = (e.currentTarget as HTMLElement).querySelector('img');
+              if (img) {
+                currentImage = img.src;
+                openModal();
+              }
+            });
+          });
+        });
+      
+        function openModal() {
+          if (modal && currentImage) {
+            const imgElement = modal.querySelector('img');
+            if (imgElement) {
+              imgElement.src = currentImage;
+            }
+            modal.classList.remove('hidden');
+          }
+        }
+      
+        function closeModal() {
+          if (modal) {
+            modal.classList.add('hidden');
+            currentImage = null;
+          }
+        }
+      
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeModal();
+        });
+      
+        // Close on overlay click
+        document.addEventListener('click', (e) => {
+          if ((e.target as HTMLElement).closest('.fixed')) {
+            closeModal();
+          }
+        });
+</script>

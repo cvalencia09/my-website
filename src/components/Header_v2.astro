@@ -1,0 +1,15 @@
+---
+import Hamburger from './Hamburger.astro';
+import Navigation from './Navigation.astro';
+import ThemeIcon from './ThemeIcon.astro';
+import '../styles/header.css'; // Ensure you have a CSS file for header styles
+---
+<header>
+  <nav class="header-nav">
+    <Hamburger />
+    <div class="nav-items">
+      <ThemeIcon />
+      <Navigation />
+    </div>
+  </nav>
+</header>

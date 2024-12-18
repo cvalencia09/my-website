@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = "About Me";
+
+const skills = ["Julia","Stata","Matlab","R", "Python", "Fortran","Astro"];
+
+
+const identity = {
+  firstName: "Cristián",
+  lastName:"Valencia",
+  nationality: "Chilean",
+  countryLive: "USA",
+  university: "Washington University in St. Louis",
+  occupation: "PhD Student in Economics",
+  hobbies: ["photography", "Baking", "Reading"],
+};
+---
+
+<BaseLayout pageTitle={pageTitle}>
+
+  <p>Here are a few facts about me:</p>
+
+  <ul>
+    <li>My name is {identity.firstName} {identity.lastName}.</li>
+    <li>I am a {identity.occupation} from {identity.university}.</li>
+    {identity.hobbies.length >= 2 && (
+      <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+    )}
+  </ul>
+<p>Currently, I feel comfortable, in a scale from best to worst, using the following programming languages/software/frameworks:</p>
+  <ul>
+    {skills.map((skill) => (
+      <li class="skill">{skill}</li>
+    ))}
+  </ul>
+  
+</BaseLayout>
