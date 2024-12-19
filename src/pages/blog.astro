@@ -5,15 +5,14 @@ const pageTitle = "My Astro Learning Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <h1>{pageTitle}</h1>
   <br/>
   <p>This is where I will post about my journey learning Astro.</p>
 
   <div class="posts-list">
     {allPosts
-      .filter(post => !post.frontmatter.private)
-      .sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate))
-      .map(post => (
+      .filter((post: any) => !post.frontmatter.private)
+      .sort((a: any, b: any) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
+      .map((post: any) => (
         <div class="post">
           <div class="date">{new Date(post.frontmatter.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
           <h1><a href={post.url} title={post.frontmatter.title}>{post.frontmatter.title}</a></h1>

@@ -10,13 +10,11 @@ const { pageTitle } = Astro.props;
 
 const socialLinks = {
   github: "https://github.com/cvalencia09",
-  linkedin: "https://linkedin.com/in/cristianvalencia09",
+  linkedin: "https://www.linkedin.com/in/cristi%C3%A1n-valencia-cassanello-3b796223/",
   email: "cristian.valencia09@gmail.com"
 };
 
-const currentPath = Astro.url.pathname.toLowerCase();
-const displayPath = currentPath.startsWith('/') ? currentPath.slice(1) : currentPath;
-const consoleName = "cvalencia ";
+
 ---
 
 <html lang="en">
@@ -28,7 +26,7 @@ const consoleName = "cvalencia ";
     <title>{pageTitle}</title>
   </head>
   <body class="terminal">
-    <Header consoleName={consoleName} currentPath={currentPath} displayPath={displayPath} />
+    <Header />
     <div class="container animated zoomIn fast" >
       <h1>{pageTitle}</h1>
       <slot />
@@ -44,33 +42,6 @@ const consoleName = "cvalencia ";
     color: #e8e9ed;
   }
 </style>
-
-<script>
-  const theme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme') ?? "light";
-    }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  })();
-
-  if (theme === 'light') {
-    document.documentElement.classList.remove('dark');
-  } else {
-    document.documentElement.classList.add('dark');
-  }
-
-  window.localStorage.setItem('theme', theme);
-
-  document.getElementById('themeToggle')?.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', 
-      document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-    );
-  });
-</script>
 
 <script>
   import "../scripts/menu.js";

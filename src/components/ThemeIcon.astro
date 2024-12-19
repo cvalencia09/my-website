@@ -11,6 +11,7 @@
   #themeToggle {
     border: 0;
     background: none;
+    cursor: pointer;
   }
   .sun { fill: black; }
   .moon { fill: transparent; }
@@ -18,3 +19,39 @@
   :global(.dark) .sun { fill: transparent; }
   :global(.dark) .moon { fill: white; }
 </style>
+
+<script>
+  class ThemeManager {
+    theme: string;
+
+    constructor() {
+      this.theme = this.getInitialTheme();
+      this.applyTheme();
+      this.setupEventListener();
+    }
+
+    getInitialTheme() {
+      return localStorage.getItem('theme') ?? 
+             (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    }
+
+    applyTheme() {
+      document.documentElement.classList.toggle('dark', this.theme === 'dark');
+      localStorage.setItem('theme', this.theme);
+    }
+
+    toggleTheme() {
+      this.theme = this.theme === 'light' ? 'dark' : 'light';
+      this.applyTheme();
+    }
+
+    setupEventListener() {
+      document.getElementById('themeToggle')?.addEventListener('click', 
+        () => this.toggleTheme()
+      );
+    }
+  }
+
+  // Initialize theme manager when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => new ThemeManager());
+</script>

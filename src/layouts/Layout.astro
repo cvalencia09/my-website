@@ -8,16 +8,12 @@ import '../styles/global.css';
 
 const { title = "Photo Gallery" } = Astro.props;
 
-const currentPath = Astro.url.pathname.toLowerCase();
-const displayPath = currentPath.startsWith('/') ? currentPath.slice(1) : currentPath;
-const consoleName = "cvalencia ";
 
 const socialLinks = {
   github: "https://github.com/cvalencia09",
-  linkedin: "https://linkedin.com/in/cristianvalencia09",
+  linkedin: "https://www.linkedin.com/in/cristi%C3%A1n-valencia-cassanello-3b796223/",
   email: "cristian.valencia09@gmail.com"
 };
-
 
 ---
 
@@ -33,7 +29,7 @@ const socialLinks = {
   </head>
   <body class="terminal">
     <div class="terminal">
-      <Header consoleName={consoleName} currentPath={currentPath} displayPath={displayPath} />
+      <Header  />
     
       <main class="container mx-auto px-4 py-16">
         <slot />
@@ -56,29 +52,7 @@ const socialLinks = {
   }
 </style>
 
+
 <script>
-  const theme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme') ?? "light";
-    }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
-  })();
-
-  if (theme === 'light') {
-    document.documentElement.classList.remove('dark');
-  } else {
-    document.documentElement.classList.add('dark');
-  }
-
-  window.localStorage.setItem('theme', theme);
-
-  document.getElementById('themeToggle')?.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-    localStorage.setItem('theme', 
-      document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-    );
-  });
+        import "../scripts/menu.js";
 </script>

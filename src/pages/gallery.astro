@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-import Layout from "../components/Layout.astro";
+import Layout from "../layouts/Layout.astro";
 
 const albums = await getCollection("albums");
 ---
@@ -31,7 +31,7 @@ const albums = await getCollection("albums");
           </div>
           <div class="mt-2 text-center text-neutral-800">
             <strong class="font-normal text-sm">{item.data.title}</strong>
-            <p class="text-xs">{item.data.description}</p>
+            <p class="text-xs">{item.data.subtitle}</p>
           </div>
         </a>
       ))

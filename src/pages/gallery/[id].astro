@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-import Layout from "~/components/Layout.astro";
+import Layout from "~/layouts/Layout.astro";
 import Modal from "~/components/Modal.astro";
 
 import { getAlbumImages } from "~/utils/albums";
@@ -31,35 +31,47 @@ const images = await getAlbumImages(album.id);
 ---
 
 <Layout title={album.data.title}>
-  <div class="text-center">
-    <h1 class="text-5xl font-bold">
-      {album.data.title}
-    </h1>
-    <p class="text-xl my-4">
-      {album.data.description}
-    </p>
+        <div class="text-center">
+                <h1 class="text-5xl font-bold">
+                        {album.data.title}
+                </h1>
+                <p class="text-xl my-4">
+                        {album.data.subtitle}
+                </p>
 
-    <div class="mx-auto container my-8 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 text-center">
-        {images.map((image) => (
-          <div data-modal-trigger class="cursor-pointer">
-            <Image
-              src={image}
-              alt={`Image from ${album.data.title} album`}
-              format="avif"
-              quality={80}
-              class="rounded mb-4 border border-transparent hover:border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg"
-              loading="lazy"
-              data-image={image}
-            />
-          </div>
-        ))}
+                <div class="mx-auto container my-8 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 text-center">
+                        {images.map((image) => (
+                        <div data-modal-trigger class="cursor-pointer">
+                        <Image
+                        src={image}
+                        alt={`Image from ${album.data.title} album`}
+                        format="avif"
+                        quality={100} 
+                        class="rounded mb-4 border border-transparent hover:border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg"
+                        loading="lazy"
+                        data-image={image}
+                        />
+                        </div>
+                        ))}
+                </div>
+
+        <!-- Terminal-styled Description -->
+        <div class="max-w-2xl mx-auto mt-12 pt-8">
+                <div class="terminal-box p-4 border border-gray-600 rounded-sm bg-opacity-20 backdrop-blur-sm">
+                        <div class="terminal-header border-b border-gray-600 pb-2 mb-4">
+                        <span class="text-xs text-gray-400">description.txt</span>
+                        </div>
+                        <div class="font-mono text-sm opacity-80">
+                                {album.data.description}
+                        </div>
+                </div>
       </div>
 
-    <p class="text-lg my-4 text-center">
-      <a href="/gallery/" class="hover:underline">View other albums</a>
-    </p>
-  </div>
-  <Modal id="imageModal" isOpen={false} />
+        <p class="text-lg my-4 text-center">
+                <a href="/gallery/" class="hover:underline">View other albums</a>
+        </p>
+        </div>
+        <Modal id="imageModal" isOpen={false} />
 
 </Layout>
 

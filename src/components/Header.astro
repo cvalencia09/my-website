@@ -3,7 +3,9 @@ import Navigation from './Navigation.astro';
 import ThemeIcon from './ThemeIcon.astro';
 import Hamburger from './Hamburger.astro';
 
-const { consoleName, currentPath, displayPath } = Astro.props;
+const currentPath = Astro.url.pathname.toLowerCase();
+const displayPath = currentPath.startsWith('/') ? currentPath.slice(1) : currentPath;
+const consoleName = "cvalencia ";
 ---
 
 <header class="header">
@@ -13,7 +15,7 @@ const { consoleName, currentPath, displayPath } = Astro.props;
       <header class="terminal-logo">
         <div class="logo terminal-prompt">
           <a href="/" class="no-style site-name">{consoleName}</a>:~#
-          <a href={currentPath}>{displayPath}</a>/
+          <a href={currentPath}>{displayPath}</a>
         </div>
       </header>
       <nav class="terminal-menu">
