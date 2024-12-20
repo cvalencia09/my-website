@@ -1,8 +1,48 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Greeting from '../components/Greeting';
+import TwoColumnLayout from '../layouts/TwoColumnLayout.astro';
 const pageTitle = "Home Page";
+import { Image } from 'astro:assets';
+import profileImage from '~/content/profile.jpg';
+import Greeting from '../components/Greeting';
+
+const identity = {
+  firstName: "Cristián",
+  lastName:"Valencia",
+  nationality: "Chilean",
+  countryLive: "USA",
+  university: "Washington University in St. Louis",
+  occupation: "PhD Student in Economics",
+  hobbies: ["photography", "baking", "reading", "playing the banjo"],
+  econResearch: ["Development Economics", "Macroeconomics", "Firm Dynamics"],
+};
 ---
-<BaseLayout pageTitle={pageTitle}>
-  <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
-</BaseLayout>
+
+<TwoColumnLayout pageTitle={pageTitle}>
+  <h1> Washington University in St. Louis </h1>
+
+  <div slot = "title"> 
+    Cristián Valencia
+  </div>
+  <div slot="column1">
+    <Image src={profileImage} alt="Profile Photo" class="w-full h-auto rounded-md" />
+    <p class="mt-4"> Email: c.valenciacassanello@wustl.edu </p>
+  </div>
+  <div slot="column2">
+    <h1 class="text-5xl font-bold">Hello, I'm Cristián</h1>
+    <p >
+      I am a PhD Candidate in Economics at Washington University in St. Louis. 
+    </p>
+    <p >
+      Currently, my research interests are: 
+    <ul class="list-disc list-inside ml-6">
+      {identity.econResearch.map((interest) => (
+        <li class="mt-2">{interest}</li>
+      ))}
+    </ul>
+    <!--- Here you can find my <a href="/about">CV</a> --->
+    </p>
+  </div>
+  <div slot="rest">
+  </div>
+  
+</TwoColumnLayout>

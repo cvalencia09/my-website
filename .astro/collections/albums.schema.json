@@ -7,10 +7,13 @@
         "title": {
           "type": "string"
         },
-        "description": {
+        "subtitle": {
           "type": "string"
         },
         "cover": {
+          "type": "string"
+        },
+        "description": {
           "type": "string"
         },
         "$schema": {

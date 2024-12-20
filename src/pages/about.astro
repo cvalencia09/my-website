@@ -13,7 +13,8 @@ const identity = {
   countryLive: "USA",
   university: "Washington University in St. Louis",
   occupation: "PhD Student in Economics",
-  hobbies: ["photography", "Baking", "Reading"],
+  hobbies: ["photography", "baking", "reading", "playing the banjo"],
+  econResearch: ["Development Economics", "Macroeconomics", "Firm Dynamics"],
 };
 ---
 
@@ -24,6 +25,12 @@ const identity = {
   <ul>
     <li>My name is {identity.firstName} {identity.lastName}.</li>
     <li>I am a {identity.occupation} from {identity.university}.</li>
+    <li> Currently, my research interests are: </li>
+    <ul class="list-disc list-inside ml-6">
+      {identity.econResearch.map((interest) => (
+        <li class="mt-2">{interest}</li>
+      ))}
+    </ul>
     {identity.hobbies.length >= 2 && (
       <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
     )}
@@ -34,5 +41,7 @@ const identity = {
       <li class="skill">{skill}</li>
     ))}
   </ul>
+
+  <p> Finally, this website was a product of translating the <a href="https://mrmierzejewski.com/hugo-theme-console/"> Hugo-Theme-Console </a> to <a href="https://astro.build/">Astro</a> + <a href ="https://jankraus.net/2024/04/05/how-to-build-a-simple-photo-gallery-with-astro/"> Jankraus' Photo Gallery</a> + some other personal modifications.</p>
   
 </BaseLayout>

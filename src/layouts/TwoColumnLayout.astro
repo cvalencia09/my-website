@@ -1,0 +1,64 @@
+---
+import SocialIcons from '../components/SocialIcons.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/terminal-0.7.4.min.css';
+import '../styles/animate-4.1.1.min.css';
+import '../styles/global.css';
+
+const { pageTitle } = Astro.props;
+
+const socialLinks = {
+  github: "https://github.com/cvalencia09",
+  linkedin: "https://www.linkedin.com/in/cristi%C3%A1n-valencia-cassanello-3b796223/",
+  email: "cristian.valencia09@gmail.com"
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="terminal">
+    <Header />
+    <!-- Title Slot -->
+    <div class="container animated zoomIn fast">
+        <slot name="title" />
+      </div>
+       <!-- Two Columns Grid -->
+    <div class="container animated zoomIn fast grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <slot name="column1" />
+      </div>
+      <div>
+        <slot name="column2" />
+      </div>
+    </div>
+    <div class="container animated zoomIn fast" >
+        <slot name="rest" />
+        <Footer />
+        <SocialIcons socialIcons={socialLinks} />
+    </div>
+  </body>
+</html>
+
+<style>
+  :global(.dark) {
+    background-color: #222225;
+    color: #e8e9ed;
+  }
+
+  /* Optional: Styling for the title */
+  .container > [slot="title"] {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+</style>
+
+<script>
+  import "../scripts/menu.js";
+</script>

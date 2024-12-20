@@ -1,0 +1,25 @@
+---
+import TwoColumnLayout from '../layouts/TwoColumnLayout.astro';
+const pageTitle = "Profile";
+---
+
+<TwoColumnLayout pageTitle={pageTitle}>
+  <div slot="column1">
+    <h2 class="text-3xl font-bold">Column 1</h2>
+    <p class="text-lg my-4">
+      This is some text in the first column. It should be displayed on the left side of the screen on larger devices.
+    </p>
+    <p class="text-lg my-4">
+      More text in the first column to ensure that the layout is working correctly.
+    </p>
+  </div>
+  <div slot="column2">
+    <h2 class="text-3xl font-bold">Column 2</h2>
+    <p class="text-lg my-4">
+      This is some text in the second column. It should be displayed on the right side of the screen on larger devices.
+    </p>
+    <p class="text-lg my-4">
+      More text in the second column to ensure that the layout is working correctly.
+    </p>
+  </div>
+</TwoColumnLayout>

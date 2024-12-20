@@ -1,0 +1,23 @@
+---
+import TwoColumnLayout from '../layouts/TwoColumnLayout.astro';
+const pageTitle = "Profile";
+import { Image } from 'astro:assets';
+import profileImage from '~/content/profile.jpg';
+---
+
+<TwoColumnLayout pageTitle={pageTitle}>
+  <div slot="column1">
+    <Image src={profileImage} alt="Profile Photo" class="rounded-full w-full h-auto" />
+  </div>
+  <div slot="column2">
+    <h1 class="text-5xl font-bold">About Me</h1>
+    <p class="text-xl my-4">
+      Currently, my research interests are:
+    </p>
+    <ul class="list-disc list-inside ml-6">
+      <li class="mt-2">Development Economics</li>
+      <li class="mt-2">Macroeconomics</li>
+      <li class="mt-2">Firm Dynamics</li>
+    </ul>
+  </div>
+</TwoColumnLayout>
