@@ -2,7 +2,7 @@
 import TwoColumnLayout from '../layouts/TwoColumnLayout.astro';
 const pageTitle = "Home Page";
 import { Image } from 'astro:assets';
-import profileImage from '../content/profile.jpg';
+// import profileImage from "/content/profile.jpg"; 
 // import Greeting from '../components/Greeting';
 
 const identity = {
@@ -24,7 +24,7 @@ const identity = {
     Cristián Valencia
   </div>
   <div slot="column1">
-    <Image src={profileImage} alt="Profile Photo" class="w-full h-auto rounded-md" />
+    <img src="/content/profile.jpg" alt="Profile Photo" class="w-full h-auto rounded-md" />
     <p class="mt-4"> Email: c.valenciacassanello@wustl.edu </p>
   </div>
   <div slot="column2">
