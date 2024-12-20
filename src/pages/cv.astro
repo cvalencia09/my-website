@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = "My CV";
+
+// Dropbox URL without auto-download
+const cvUrl = "https://dl.dropboxusercontent.com/scl/fi/wz8iozqs5e2xdd0cixxp2/CV_Academic.pdf?rlkey=eb5m2yr2210w1lsx4qqt3l0jw";
+// Google Docs viewer URL for displaying PDF
+const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(cvUrl)}&embedded=true`;
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <div class="pdf-container">
+    <div class="download-bar">
+      <a href={cvUrl} download="CV_Academic.pdf" class="download-button">
+        Download CV
+      </a>
+    </div>
+    <iframe 
+      src={viewerUrl}
+      width="100%" 
+      height="800px"
+      style="border: 1px solid var(--secondary-color);"
+    >
+      <p>
+        Unable to display PDF file. <a href={cvUrl}>Download</a> instead.
+      </p>
+    </iframe>
+  </div>
+</BaseLayout>
+
+<style>
+  .pdf-container {
+    width: 100%;
+    margin: 2rem auto;
+    min-height: 800px;
+  }
+  
+  .download-bar {
+    margin-bottom: 1rem;
+    text-align: right;
+  }
+  
+  .download-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: var(--font-color);
+    border: 1px dashed var(--secondary-color);
+    text-decoration: none;
+    font-family: var(--font-stack);
+    transition: all 0.2s ease;
+  }
+  
+  .download-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--invert-font-color);
+  }
+</style>
